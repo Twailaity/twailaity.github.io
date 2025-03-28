@@ -237,3 +237,14 @@ border-radius: 10px;
     max-width: 800px;
     margin: auto;
 }
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.content, .grid, .hero, footer {
+  max-width: 100%;
+}
