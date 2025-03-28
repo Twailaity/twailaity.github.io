@@ -1,8 +1,9 @@
-}
-  @use postcss-preset-env;
+} @use postcss-preset-env;
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 :root {
@@ -10,13 +11,13 @@
   --header-bg-sticky: hsl(196, 10%, 30%, .98);
   --header-text: hsl(0, 5%, 96%);
   --header-height: 48px;
-  --header-width-sticky: min(600px, 100%) ;
+  --header-width-sticky: min(600px, 100%);
   --nav-gap: 1px;
   --nav-item-space: 8px;
-  --content-space: 64px 32px;
-  --btn-space: 16px 32px;
+  --content-space: 32px 16px;
+  --btn-space: 12px 24px;
   --btn-radius: 99em;
-  --hero-gap: 16px;
+  --hero-gap: 12px;
   --footer-bg: hsl(196, 10%, 20%);
   --footer-text: hsl(0, 5%, 96%);
   --footer-height: 48px;
@@ -27,213 +28,170 @@ html {
 }
 
 header {
-    border-radius: 10px;
-    z-index: 1000;
-    background-color: var(--header-bg);
-    position: sticky;
-    top: 0;
-    overflow: visible;
-    margin: 0 auto;
-    height: var(--header-height);
-  }
-
-  header ul {
-    display: grid;
-    place-items: center;
-    height: 100%;
-    list-style: none;
-    grid-auto-flow: column;
-    gap: var(--nav-gap);
-    margin: 0 auto;
-    padding: 0;
-    width: min(900px, 100%);
-  }
-
-  header li {
-    margin: 0;
-    padding: var(--nav-item-space);
-  }
-
-  header a:any-link {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    color: var(--header-text);
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-
-  header a.active {
-    font-weight: bold;
-    color: var(--active-text, red);
-  }
-.herote {
-    display: grid;
-  place-items: center;
-  place-content: center;
-  gap: var(--hero-gap);
-  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  z-index: 1000;
   background-color: var(--header-bg);
+  position: sticky;
+  top: 0;
+  overflow: visible;
+  margin: 0 auto;
+  height: var(--header-height);
+  width: 100%;
+}
+
+header ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  list-style: none;
+  gap: var(--nav-gap);
+  padding: 0 10px;
+}
+
+header li {
+  padding: var(--nav-item-space);
+}
+
+header a:any-link {
+  display: block;
+  text-align: center;
+  text-decoration: none;
   color: var(--header-text);
-  & h1 {
-    font-size: 64px;
-    font-weight: 100;
-    line-height: 1;
-    margin: 0;
-  }
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
 
-  & p {
-    font-size: 32px;
-    font-weight: 200;
-    line-height: 2;
-    margin: 0;
-  }
-
-  & button {
-    text-decoration: none; /* Убирает подчеркивание */
-    background: transparent;
-    color: currentColor;
-    appearance: none;
-    border: 1px solid currentColor;
-    border-radius: var(--btn-radius);
-    padding: var(--btn-space);
-    text-transform: uppercase;
-  }
+header a.active {
+  font-weight: bold;
+  color: var(--active-text, red);
 }
 
 .hero {
-    border-radius: 10px;
-  background-image: url('img/img.jpg'); /* Укажи путь к изображению */
-  background-size: cover; /* Растягивает изображение на весь блок */
-  background-position: center; /* Центрирует изображение */
-  display: grid;
-  place-items: center;
-  place-content: center;
+  border-radius: 10px;
+  background-image: url('img/img.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: var(--hero-gap);
-  aspect-ratio: 16 / 9;
-  background-color: var(--header-bg);
+  height: 50vh;
   color: var(--header-text);
+  text-align: center;
+}
 
-  & h1 {
-    font-size: 64px;
-    font-weight: 100;
-    line-height: 1;
-    margin: 0;
-  }
+.hero h1 {
+  font-size: 48px;
+  font-weight: 100;
+  margin: 0;
+}
 
-  & p {
-    font-size: 32px;
-    font-weight: 200;
-    line-height: 2;
-    margin: 0;
-  }
+.hero p {
+  font-size: 24px;
+  font-weight: 200;
+  margin: 0;
+}
 
-  & button {
-    text-decoration: none; /* Убирает подчеркивание */
-    background: transparent;
-    color: currentColor;
-    appearance: none;
-    border: 1px solid currentColor;
-    border-radius: var(--btn-radius);
-    padding: var(--btn-space);
-    text-transform: uppercase;
-  }
+.hero button {
+  background: transparent;
+  color: currentColor;
+  border: 1px solid currentColor;
+  border-radius: var(--btn-radius);
+  padding: var(--btn-space);
+  text-transform: uppercase;
 }
 
 .content {
-  width: min(1000px, 100%);
+  max-width: 1000px;
   padding: var(--content-space);
   margin: auto;
+  text-align: center;
+}
 
-  h1 {
-    font-weight: 200;
-  }
-  h2 {
-    font-weight: 300;
-  }
-  p {
-    font-size: 18px;
-    line-height: 1.618;
-  }
+.content h1 {
+  font-weight: 200;
+}
+
+.content h2 {
+  font-weight: 300;
+}
+
+.content p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 16px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.card {
+  background: #ffffff;
+  border: 2px solid rgb(45, 52, 53);
+  padding: 16px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.card span {
+  display: block;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgb(45, 52, 53);
 }
 
 footer {
-border-radius: 10px;
+  border-radius: 10px;
   background-color: var(--footer-bg);
   color: var(--footer-text);
   height: var(--footer-height);
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@supports (animation-timeline: scroll()) {
+@media (max-width: 768px) {
   header {
-    animation: header ease-in-out both;
-    animation-timeline: scroll();
-    animation-range: 0 90vh;
-  }
-
-  @keyframes header {
-    0% {
-      width: 100%;
-    }
-    70% {
-      width: 100%;
-      border-radius: 0;
-      translate: 0 -100%;
-      background-color: var(--header-bg);
-    }
-    90% {
-      top: 0;
-      width: var(--header-width-sticky);
-      translate: 0 -100%;
-      box-shadow: 0 0 0 rgba(0 0 0 / 0);
-    }
-    100% {
-      width: var(--header-width-sticky);
-      background-color: var(--header-bg-sticky);
-      top: 12px;
-      height: 48px;
-      border-radius: 99em;
-      translate: 0 0;
-      box-shadow: inset 0 1px 1px white,  0 0 1px rgba(0 0 0 / 0.9), 0 8px 14px rgba(0 0 0 / 0.3);
-    }
-  }
-}
-
-.card {
-    background: #ffffff;
-    border: 2px rgb(45, 52, 53);
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    transition: transform 0.3s;
-}
-.card img {
-    width: 100%;
     height: auto;
-    border-radius: 5px;
-}
-.card span {
-    display: block;
-    margin-top: 10px;
+    padding: 10px 0;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero p {
     font-size: 18px;
-}
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgb(45, 52, 53);
-}
-.card {
-    text-decoration: none; /* Убирает подчеркивание */
-    color: inherit; /* Делает цвет текста таким же, как у родителя */
-    display: block; /* Чтобы ссылки вели себя как блоки */
-}
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
+  }
+
+  .content {
+    padding: 24px 16px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .card {
+    padding: 12px;
+  }
 }
