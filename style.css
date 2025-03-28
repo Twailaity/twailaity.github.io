@@ -23,7 +23,9 @@
   --footer-height: 48px;
 }
 
-html {
+html, body {
+  width: 100%;
+  overflow-x: hidden;
   font-family: system-ui;
 }
 
@@ -34,7 +36,7 @@ header {
   position: sticky;
   top: 0;
   overflow: visible;
-  margin: 0 auto;
+  margin: 0;
   height: var(--header-height);
   width: 100%;
 }
@@ -81,6 +83,7 @@ header a.active {
   height: 50vh;
   color: var(--header-text);
   text-align: center;
+  width: 100%;
 }
 
 .hero h1 {
@@ -109,6 +112,7 @@ header a.active {
   padding: var(--content-space);
   margin: auto;
   text-align: center;
+  width: 100%;
 }
 
 .content h1 {
@@ -130,7 +134,8 @@ header a.active {
   gap: 16px;
   padding: 16px;
   max-width: 800px;
-  margin: auto;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .card {
@@ -167,6 +172,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 @media (max-width: 768px) {
