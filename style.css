@@ -192,6 +192,7 @@ footer {
   height: var(--footer-height);
   display: grid;
   place-items: center;
+  justify-content: center; /* Выравнивание по горизонтали */
 }
 
 @supports (animation-timeline: scroll()) {
