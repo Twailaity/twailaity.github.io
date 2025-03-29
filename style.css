@@ -238,13 +238,17 @@ border-radius: 10px;
     margin: auto;
 }
 
+/* Убираем стандартные поля и предотвращаем горизонтальную прокрутку */
 html, body {
-  width: 100%;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-.content, .grid, .hero, footer {
-  max-width: 100%;
-}
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    overflow-x: hidden; /* Скрывает горизонтальную прокрутку, если что-то выходит за пределы */
+  }
+  
+  /* (Опционально) Перенос текста в герой-секциях, чтобы длинные строки не ломали layout */
+  .hero h1, .hero p, .herote h1, .herote p {
+    overflow-wrap: break-word; /* Переносит длинные слова */
+  }
