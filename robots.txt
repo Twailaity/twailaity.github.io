@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /private/
+Disallow: /drafts/
+
+Allow: /
+
+Sitemap: https://twailaity.github.io/sitemap.xml
