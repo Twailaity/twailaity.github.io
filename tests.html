@@ -18,46 +18,14 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/100668628" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
-        <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Адаптивная верстка для мобильных устройств -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Тесты</title>
-
-  <!-- Описание страницы (отображается в поиске под заголовком) -->
-  <meta name="description" content="Онлайн-платформа для прохождения тестов по профессии парикмахер. Учись, проверяй знания и готовься к экзаменам." />
-
-  <!-- Ключевые слова (ранее использовались для SEO, сейчас почти игнорируются) -->
-  <meta name="keywords" content="Тесты, парикмахер, могилев, МГИК, индустриальный колледж, тесты для парикмахеров, обучение" />
-
-  <!-- Разрешить индексировать страницу и переходить по ссылкам -->
-  <meta name="robots" content="index, follow" />
-
-  <!-- Значок сайта (отображается в браузере во вкладке) -->
-  <link rel="icon" href="лого.png" type="image/x-icon" />
-
-  <!-- Open Graph — данные для отображения ссылки при публикации в соцсетях -->
-  <meta property="og:title" content="Тесты" />
-  <meta property="og:description" content="Онлайн-платформа для прохождения тестов по профессии парикмахер. Учись, проверяй знания и готовься к экзаменам." />
-  <meta property="og:image" content="https://twailaity.github.io/img/preview.jpg" />
-  <meta property="og:url" content="https://twailaity.github.io/tests.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="ru_RU" />
-
-  <!-- Структурированные данные schema.org для лучшего понимания страницы поисковиками -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "EducationalOrganization",  // Тип: образовательная организация
-  "name": "Сайт тестов для парикмахеров",
-  "url": "https://twailaity.github.io/tests.html",
-  "logo": "https://twailaity.github.io/лого.png",
-  "description": "Онлайн-платформа для прохождения тестов по профессии парикмахер. Учись, проверяй знания и готовься к экзаменам."
-}
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тесты</title>
+    <link rel="icon" type="image/png" href="лого.png">
     <link rel="stylesheet" href="style.css">
-    <link rel="" href="script.js">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -125,8 +93,20 @@
 
         </div>
     </section>
+<div class="site-controls">
+    <button id="theme-toggle-button" class="theme-switcher" title="Переключить тему">
+        ☀️
+    </button>
+    <div id="accent-picker-container" class="accent-picker" title="Выбрать акцентный цвет">
+        <button id="accent-btn-1" class="accent-option accent-1" data-color="var(--accent-color-1)" aria-label="Акцентный цвет синий"></button>
+        <button id="accent-btn-2" class="accent-option accent-2" data-color="var(--accent-color-2)" aria-label="Акцентный цвет зеленый"></button>
+        <button id="accent-btn-3" class="accent-option accent-3" data-color="var(--accent-color-3)" aria-label="Акцентный цвет желтый"></button>
+        <button id="accent-btn-4" class="accent-option accent-4" data-color="var(--accent-color-4)" aria-label="Акцентный цвет красный"></button>
+    </div>
+</div>
     <footer>
         2025 Могилёвский государственный индустриальный колледж
     </footer>
+<script src="script.js" defer></script>
 </body>
 </html>
