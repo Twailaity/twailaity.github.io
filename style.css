@@ -1,4 +1,4 @@
-@use postcss-preset-env; /* Сохраните, если используете, иначе можно удалить */
+@use postcss-preset-env;
 
 * {
   box-sizing: border-box;
@@ -6,199 +6,243 @@
   padding: 0;
 }
 
+/* --- НАЧАЛО ИЗМЕНЕНИЙ: НОВЫЕ ГРАДИЕНТЫ И ОПТИМИЗАЦИЯ --- */
 :root {
-  /* Семейства шрифтов */
+  /* Шрифты */
   --font-family-headings: 'Montserrat', system-ui, sans-serif;
   --font-family-body: 'Open Sans', system-ui, sans-serif;
 
-  /* Светлая тема (По умолчанию) */
-  --bg-color: #F8F9FA;
+  /* Базовые цвета светлой темы */
   --text-color: #212529;
-  --header-bg: #2F4F4F; /* Сохраняем похожий темный хедер для контраста */
-  --header-text-color: #FFFFFF;
-  --footer-bg: #222222;
-  --footer-text-color: #E9ECEF;
-  --card-bg: #FFFFFF;
-  --card-border-color: #DEE2E6;
-  --card-text-color: #343A40;
+  --header-bg: rgba(255, 255, 255, 0.7); /* Сделаем светлый хедер для контраста */
+  --header-text-color: #212529;
+  --footer-bg: rgba(248, 249, 250, 0.7);
+  --footer-text-color: #343A40;
+  --card-bg: rgba(255, 255, 255, 0.75);
+  --card-border-color: rgba(0, 0, 0, 0.1);
+  --card-text-color: #212529;
   --shadow-color: rgba(0, 0, 0, 0.1);
-
-  /* Акцентные цвета (пользователь может выбрать один) */
-  --accent-color-1: #007BFF; /* Синий */
-  --accent-color-2: #28A745; /* Зеленый */
-  --accent-color-3: #FFC107; /* Желтый */
-  --accent-color-4: #DC3545; /* Красный */
-  --current-accent-color: var(--accent-color-1); /* Акцент по умолчанию */
-
-  /* Производные цвета ссылок от акцентного */
-  --link-color: var(--current-accent-color);
-  --link-hover-color: color-mix(in srgb, var(--current-accent-color) 70%, black);
-  --button-bg: var(--current-accent-color);
-  --button-text-color: #FFFFFF;
-  --button-hover-bg: var(--link-hover-color);
-
-
-  /* Размеры и отступы (из оригинала или скорректированные) */
-  --header-height: 56px; /* Немного выше для лучших сенсорных целей */
-  --header-width-sticky: min(700px, 95%);
-  --footer-height: 50px;
-  --nav-gap: 1px; /* */
-  --nav-item-space: 12px 16px; /* Увеличенный padding */
-  --content-padding: 32px; /* Единый padding */
-  --btn-padding: 12px 24px; /* Скорректированный padding кнопок */
-  --btn-radius: 8px; /* Более мягкий радиус */
-  --hero-gap: 20px; /* */
-  --card-padding: 20px;
-  --grid-gap: 20px;
+  
+  /* Акцентные цвета */
+  --accent-color-1: #0d6efd; /* Синий */
+  --accent-color-2: #198754; /* Зеленый */
+  --accent-color-3: #ffc107; /* Желтый */
+  --accent-color-4: #dc3545; /* Красный */
+  --current-accent-color: var(--accent-color-1);
+  
+  /* НОВЫЕ Градиенты для СВЕТЛОЙ темы */
+  --gradient-light-blue: linear-gradient(135deg, #a8c0ff, #3f2b96); /* Яркий сине-фиолетовый */
+  --gradient-light-green: linear-gradient(135deg, #d4fc79, #96e6a1); /* Лайм и мята */
+  --gradient-light-yellow: linear-gradient(135deg, #fceabb, #f8b500); /* Солнечный рассвет */
+  --gradient-light-red: linear-gradient(135deg, #ff9a9e, #fad0c4); /* Розовый рассвет */
 }
 
 html[data-theme="dark"] {
-  --bg-color: #1A1A1A;
+  /* Базовые цвета темной темы */
   --text-color: #E9ECEF;
-  --header-bg: #111111;
+  --header-bg: rgba(17, 17, 17, 0.7);
   --header-text-color: #E9ECEF;
-  --footer-bg: #000000;
+  --footer-bg: rgba(26, 26, 26, 0.7);
   --footer-text-color: #CCCCCC;
-  --card-bg: #2C2C2C;
-  --card-border-color: #444444;
+  --card-bg: rgba(44, 44, 44, 0.75);
+  --card-border-color: rgba(255, 255, 255, 0.15);
   --card-text-color: #F0F0F0;
-  --shadow-color: rgba(255, 255, 255, 0.05);
+  --shadow-color: rgba(0, 0, 0, 0.25);
 
-  /* Акцентный цвет может потребовать небольшой корректировки для темной темы, если он слишком темный */
-  /* Пока предполагаем, что базовые акценты достаточно яркие */
-  --link-hover-color: color-mix(in srgb, var(--current-accent-color) 70%, white);
-  --button-hover-bg: var(--link-hover-color);
+  /* НОВЫЕ Градиенты для ТЕМНОЙ темы */
+  --gradient-dark-blue: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Глубокий космос */
+  --gradient-dark-green: linear-gradient(135deg, #233329, #415245, #1e5631); /* Ночной лес */
+  --gradient-dark-yellow: linear-gradient(135deg, #3B2F0E, #5C4A17, #7D6521); /* Тлеющие угли */
+  --gradient-dark-red: linear-gradient(135deg, #3c1053, #ad5389); /* Синтвейв/Неон */
 }
+
+/* Применение градиентов в зависимости от атрибутов */
+html {
+  --animated-gradient: var(--gradient-light-blue);
+}
+html[data-accent="1"] { --animated-gradient: var(--gradient-light-blue); }
+html[data-accent="2"] { --animated-gradient: var(--gradient-light-green); }
+html[data-accent="3"] { --animated-gradient: var(--gradient-light-yellow); }
+html[data-accent="4"] { --animated-gradient: var(--gradient-light-red); }
+
+html[data-theme="dark"] { --animated-gradient: var(--gradient-dark-blue); }
+html[data-accent="1"][data-theme="dark"] { --animated-gradient: var(--gradient-dark-blue); }
+html[data-accent="2"][data-theme="dark"] { --animated-gradient: var(--gradient-dark-green); }
+html[data-accent="3"][data-theme="dark"] { --animated-gradient: var(--gradient-dark-yellow); }
+html[data-accent="4"][data-theme="dark"] { --animated-gradient: var(--gradient-dark-red); }
+
+/* --- КОНЕЦ ИЗМЕНЕНИЙ --- */
 
 html {
   font-family: var(--font-family-body);
   line-height: 1.7;
   scroll-behavior: smooth;
+  position: relative;
+}
+
+@keyframes animated-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 body {
-  background-color: var(--bg-color);
+  background: transparent; /* Тело сайта теперь прозрачное */
   color: var(--text-color);
-  overflow-x: hidden; /* */
-  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* Псевдоэлемент для фона - оптимизация производительности */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: var(--animated-gradient);
+  background-size: 300% 300%;
+  animation: animated-gradient 15s ease infinite;
+  z-index: -1; /* Размещаем фон за всем контентом */
+  transition: background 0.5s ease;
+}
+
+/* Производные цвета ссылок от акцентного */
+:root {
+    --link-color: var(--current-accent-color);
+    --link-hover-color: color-mix(in srgb, var(--current-accent-color) 70%, black);
+    --button-bg: var(--current-accent-color);
+    --button-text-color: #FFFFFF;
+    --button-hover-bg: var(--link-hover-color);
+    
+    /* Размеры и отступы */
+    --header-height: 56px;
+    --header-width-sticky: min(700px, 95%);
+    --footer-height: 50px;
+    --nav-gap: 1px;
+    --nav-item-space: 12px 16px;
+    --content-padding: 32px;
+    --btn-padding: 12px 24px;
+    --btn-radius: 8px;
+    --hero-gap: 20px;
+    --card-padding: 20px;
+    --grid-gap: 20px;
+}
+html[data-theme="dark"] {
+    --link-hover-color: color-mix(in srgb, var(--current-accent-color) 70%, white);
+    --button-hover-bg: var(--link-hover-color);
 }
 
 /* --- Шапка сайта --- */
 header {
   background-color: var(--header-bg);
+  backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
   z-index: 1000;
   height: var(--header-height);
-  border-radius: 0; /* Изначально на всю ширину */
+  border-radius: 0;
   box-shadow: 0 2px 4px var(--shadow-color);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 header ul {
-  display: flex; /* Изменено с grid для более простого центрирования */
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   list-style: none;
   margin: 0 auto;
   padding: 0;
-  max-width: 900px; /* */
-  gap: var(--nav-gap); /* */
+  max-width: 900px;
+  gap: var(--nav-gap);
 }
-
-header li {
-  padding: 0; /* Padding будет на теге <a> */
-}
-
+header li { padding: 0; }
 header a:any-link {
   display: block;
   padding: var(--nav-item-space);
   text-align: center;
   text-decoration: none;
   color: var(--header-text-color);
-  font-size: 14px; /* */
-  font-weight: 500; /* */
-  text-transform: uppercase; /* */
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
   border-radius: 4px;
   transition: color 0.2s ease, background-color 0.2s ease;
 }
-
 header a:hover, header a:focus {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.05);
   color: var(--current-accent-color);
 }
-
 header a.active {
-  font-weight: bold; /* */
-  color: var(--current-accent-color) !important; /* Используем акцент для активной ссылки */
-  background-color: rgba(0,0,0, 0.1);
+  font-weight: bold;
+  color: var(--current-accent-color) !important;
+}
+html[data-theme='dark'] header a:hover,
+html[data-theme='dark'] header a:focus {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* --- Секция Hero (index.html) --- */
 .hero {
-  border-radius: 0; /* На всю ширину */
-  background-image: url('img/img.jpg'); /* */
-  background-size: cover; /* */
-  background-position: center; /* */
+  border-radius: 0;
+  background-image: url('img/img.jpg');
+  background-size: cover;
+  background-position: center;
   display: grid;
   place-items: center;
   place-content: center;
-  gap: var(--hero-gap); /* */
-  min-height: 100vh; /* Убедимся, что занимает значительную часть экрана */
+  gap: var(--hero-gap);
+  min-height: 100vh;
   padding: var(--content-padding);
   text-align: center;
-  position: relative; /* Для наложения */
+  position: relative;
 }
-
-.hero::before { /* Опциональное наложение для лучшего контраста текста */
+.hero::before {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4); /* Настройте прозрачность по необходимости */
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
-
-.hero > * { /* Убедимся, что контент над наложением */
+.hero > * {
   position: relative;
   z-index: 2;
 }
-
 .hero h1 {
   font-family: var(--font-family-headings);
-  font-size: clamp(2.5rem, 5vw, 4rem); /* Адаптивный размер шрифта */
-  font-weight: 700; /* Более жирный */
-  line-height: 1.2; /* */
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.2;
   margin: 0;
-  color: #FFFFFF; /* Обычно белый текст на темном наложении */
+  color: #FFFFFF;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
-
 .hero p {
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem); /* */
-  font-weight: 300; /* */
-  line-height: 1.6; /* */
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 300;
+  line-height: 1.6;
   margin: 0 0 var(--hero-gap) 0;
-  color: #F0F0F0; /* */
+  color: #F0F0F0;
   max-width: 600px;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
-
 .hero button, .content button, input[type="submit"] {
-  text-decoration: none; /* */
+  text-decoration: none;
   background: var(--button-bg);
   color: var(--button-text-color);
-  appearance: none; /* */
+  appearance: none;
   border: none;
-  border-radius: var(--btn-radius); /* */
-  padding: var(--btn-padding); /* */
-  text-transform: uppercase; /* */
+  border-radius: var(--btn-radius);
+  padding: var(--btn-padding);
+  text-transform: uppercase;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease;
   box-shadow: 0 2px 5px var(--shadow-color);
 }
-
 .hero button:hover, .content button:hover, input[type="submit"]:hover {
   background-color: var(--button-hover-bg);
   transform: translateY(-2px);
@@ -206,36 +250,28 @@ header a.active {
 
 /* --- Область контента --- */
 .content {
-  width: 100%; /* */
-  max-width: 900px; /* Скорректировано для лучшей читаемости */
+  width: 100%;
+  max-width: 900px;
   padding: var(--content-padding);
-  margin: 0 auto; /* */
+  margin: 0 auto;
 }
-
 .content h1, .content h2, .content h3 {
   font-family: var(--font-family-headings);
   font-weight: 700;
   margin-bottom: 0.75em;
   line-height: 1.3;
-  color: var(--text-color); /* Убедимся, что заголовки используют цвет текста темы */
+  color: var(--text-color);
 }
-.content h1 { font-size: 2.2rem; } /* (в оригинале было font-weight: 200, теперь жирнее) */
-.content h2 { font-size: 1.8rem; } /* (в оригинале было font-weight: 300, теперь жирнее) */
-
+.content h1 { font-size: 2.2rem; }
+.content h2 { font-size: 1.8rem; }
 .content p, .content ul, .content ol {
-  font-size: 1rem; /* (скорректировано с 18px для единообразия) */
-  line-height: 1.7; /* (скорректировано с 1.618) */
+  font-size: 1rem;
+  line-height: 1.7;
   margin-bottom: 1.5em;
-  overflow-wrap: break-word; /* */
+  overflow-wrap: break-word;
 }
-
-.content ul, .content ol {
-  padding-left: 20px;
-}
-.content li {
-  margin-bottom: 0.5em;
-}
-
+.content ul, .content ol { padding-left: 20px; }
+.content li { margin-bottom: 0.5em; }
 .content a {
   color: var(--link-color);
   text-decoration: none;
@@ -245,7 +281,6 @@ header a.active {
   color: var(--link-hover-color);
   text-decoration: underline;
 }
-
 .content strong { font-weight: bold; }
 .content em { font-style: italic; }
 .content code {
@@ -255,64 +290,61 @@ header a.active {
   font-family: monospace;
 }
 
-
 /* --- Карточки тестов (tests.html) --- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Немного больший minmax */
-  gap: var(--grid-gap); /* */
-  padding: var(--content-padding) 0; /* Без горизонтального padding для самой сетки */
-  max-width: 1200px; /* Позволяем сетке быть шире */
-  margin: 0 auto; /* */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--grid-gap);
+  padding: var(--content-padding) 0;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-
 .card {
-  background: var(--card-bg); /* */
-  border: 1px solid var(--card-border-color); /* Более тонкая граница */
-  padding: var(--card-padding); /* */
-  border-radius: var(--btn-radius); /* Единый радиус */
-  text-align: center; /* */
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease; /* */
-  text-decoration: none; /* */
-  color: var(--card-text-color); /* */
-  display: flex; /* Для лучшего внутреннего выравнивания */
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--card-border-color);
+  padding: var(--card-padding);
+  border-radius: var(--btn-radius);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  text-decoration: none;
+  color: var(--card-text-color);
+  display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Сдвигает текст вниз, если изображение слишком высокое */
+  justify-content: space-between;
   box-shadow: 0 4px 8px var(--shadow-color);
 }
-
 .card img {
-  width: 100%; /* */
-  height: 150px; /* Фиксированная высота для единообразия */
-  object-fit: cover; /* Гарантирует, что изображение хорошо покрывает область */
-  border-radius: calc(var(--btn-radius) - 4px); /* Радиус немного меньше, чем у карточки */
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: calc(var(--btn-radius) - 4px);
   margin-bottom: 15px;
 }
-
 .card span {
-  display: block; /* */
-  margin-top: 10px; /* */
-  font-size: 1rem; /* (скорректировано с 18px) */
+  display: block;
+  margin-top: 10px;
+  font-size: 1rem;
   font-weight: bold;
   line-height: 1.4;
-  color: var(--card-text-color); /* */
-  overflow-wrap: break-word; /* */
+  color: var(--card-text-color);
+  overflow-wrap: break-word;
 }
-
 .card:hover {
-  transform: translateY(-5px) scale(1.03); /* (скорректировано Y и scale) */
-  box-shadow: 0 8px 16px color-mix(in srgb, var(--current-accent-color) 30%, var(--shadow-color) 70%); /* Акцентированная тень */
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--current-accent-color) 30%, var(--shadow-color) 70%);
 }
 
 /* --- Подвал --- */
 footer {
-  border-radius: 0; /* (удален радиус для ощущения полной ширины) */
-  background-color: var(--footer-bg); /* */
-  color: var(--footer-text-color); /* */
-  height: var(--footer-height); /* */
-  display: grid; /* */
-  place-items: center; /* */
-  text-align: center; /* (justify-content удален, text-align добавлен) */
+  border-radius: 0;
+  background-color: var(--footer-bg);
+  backdrop-filter: blur(10px);
+  color: var(--footer-text-color);
+  height: var(--footer-height);
+  display: grid;
+  place-items: center;
+  text-align: center;
   font-size: 0.9rem;
   padding: 0 15px;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -323,47 +355,47 @@ footer {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 1002; /* Выше хедера, если z-index хедера 1000 */
+  z-index: 1002;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 .theme-switcher {
   padding: 10px;
   background-color: var(--card-bg);
+  backdrop-filter: blur(10px);
   color: var(--text-color);
   border: 1px solid var(--card-border-color);
-  border-radius: 50%; /* Делаем круглым */
+  border-radius: 50%;
   cursor: pointer;
   width: 48px;
   height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem; /* Для иконки-эмодзи */
+  font-size: 1.5rem;
   box-shadow: 0 2px 10px var(--shadow-color);
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
 }
 .theme-switcher:hover {
   transform: scale(1.1);
 }
-
 .accent-picker {
   display: flex;
   gap: 8px;
   padding: 8px;
   background-color: var(--card-bg);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--card-border-color);
-  border-radius: 20px; /* Форма пилюли */
+  border-radius: 20px;
   box-shadow: 0 2px 10px var(--shadow-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-
 .accent-option {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  border: 2px solid var(--card-bg); /* Граница для более четкого выделения выбранного состояния */
+  border: 2px solid transparent;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   outline: none;
@@ -372,69 +404,54 @@ footer {
   transform: scale(1.2);
 }
 .accent-option.active-accent {
-  box-shadow: 0 0 0 2px var(--current-accent-color); /* Выделение активного акцента */
+  box-shadow: 0 0 0 2px var(--current-accent-color);
 }
-
 .accent-picker .accent-1 { background-color: var(--accent-color-1); }
 .accent-picker .accent-2 { background-color: var(--accent-color-2); }
 .accent-picker .accent-3 { background-color: var(--accent-color-3); }
 .accent-picker .accent-4 { background-color: var(--accent-color-4); }
 
-/* --- Анимация прокрутки для хедера (из оригинала, немного упрощена) --- */
-/* Это может быть или не быть желаемым с новым дизайном. Тщательно протестируйте. */
+/* --- Анимация прокрутки для хедера --- */
 @supports (animation-timeline: scroll()) {
   header {
     animation: header-scroll ease-in-out both;
-    animation-timeline: scroll(root); /* явная прокрутка root */
-    animation-range: 0 200px; /* Более короткий диапазон для эффекта */
+    animation-timeline: scroll(root);
+    animation-range: 0 200px;
   }
-
   @keyframes header-scroll {
     0% {
       width: 100%;
       border-radius: 0;
-      background-color: var(--header-bg); /* Начинаем с цвета темы */
+      background-color: var(--header-bg);
     }
     100% {
       width: var(--header-width-sticky);
-      background-color: color-mix(in srgb, var(--header-bg) 95%, black 5%); /* Немного темнее при "липкости" */
-      top: 10px; /* Небольшой отступ сверху */
+      background-color: color-mix(in srgb, var(--header-bg) 95%, black 5%);
+      top: 10px;
       height: var(--header-height);
       border-radius: var(--btn-radius);
-      margin: 0 auto; /* Центрирование, когда "липкий" и уже */
+      margin: 0 auto;
       box-shadow: 0 4px 12px var(--shadow-color);
     }
   }
 }
 
-
-/* --- Медиа-запросы (Уточнены из оригинала) --- */
+/* --- Медиа-запросы --- */
 @media (max-width: 768px) {
   :root {
     --content-padding: 24px;
     --header-height: 52px;
   }
-  .hero h1 { font-size: clamp(2rem, 6vw, 3rem); } /* */
-  .hero p { font-size: clamp(1rem, 3vw, 1.25rem); } /* */
-
-  header ul {
-    /* Рассмотрите мобильное меню (гамбургер) для большого количества элементов, но для 3 элементов это нормально */
-    justify-content: space-around; /* Распределяем элементы более равномерно */
-  }
+  .hero h1 { font-size: clamp(2rem, 6vw, 3rem); }
+  .hero p { font-size: clamp(1rem, 3vw, 1.25rem); }
+  header ul { justify-content: space-around; }
   header a:any-link {
-    --nav-item-space: 8px 10px; /* Немного меньший padding */
+    --nav-item-space: 8px 10px;
     font-size: 13px;
   }
-
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* (Скорректировано с 1fr) */
-  }
+  .grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
   .card img { height: 120px; }
-
-  .site-controls {
-    bottom: 15px;
-    right: 15px;
-  }
+  .site-controls { bottom: 15px; right: 15px; }
   .theme-switcher { width: 44px; height: 44px; font-size: 1.3rem; }
   .accent-picker { gap: 6px; padding: 6px; }
   .accent-option { width: 20px; height: 20px; }
@@ -445,20 +462,14 @@ footer {
     --content-padding: 16px;
     --header-height: 48px;
   }
-  .hero h1 { font-size: clamp(1.8rem, 7vw, 2.5rem); } /* */
-  .hero p { font-size: clamp(0.9rem, 4vw, 1.1rem); } /* */
-
-  .content p, .content ul, .content ol { font-size: 0.95rem; } /* */
-  .grid {
-    grid-template-columns: 1fr; /* Одна колонка для очень маленьких экранов */
-  }
-   .card img { height: 180px; /* Более высокое изображение для одной колонки */ }
-
-   header ul {
-     gap: 0;
-   }
-   header a:any-link {
+  .hero h1 { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+  .hero p { font-size: clamp(0.9rem, 4vw, 1.1rem); }
+  .content p, .content ul, .content ol { font-size: 0.95rem; }
+  .grid { grid-template-columns: 1fr; }
+  .card img { height: 180px; }
+  header ul { gap: 0; }
+  header a:any-link {
     --nav-item-space: 6px 8px;
     font-size: 12px;
-   }
+  }
 }
