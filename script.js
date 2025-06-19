@@ -1,72 +1,88 @@
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggleButton = document.getElementById('theme-toggle-button');
     const accentPickerContainer = document.getElementById('accent-picker-container');
-    const root = document.documentElement; // Получаем корневой элемент <html>
+    const root = document.documentElement;
 
-    // --- Переключение тем ---
-    const sunIcon = '☀️'; // Иконка солнца
-    const moonIcon = '🌙'; // Иконка луны
+    const sunIcon = '☀️';
+    const moonIcon = '🌙';
 
+    let currentAccentId = localStorage.getItem('accent-id') || '1'; // Отслеживаем текущий ID акцента
+
+    // --- Применение темы (светлая/темная) ---
     function applyTheme(theme) {
-        root.setAttribute('data-theme', theme); // Устанавливаем атрибут data-theme на <html>
+        root.setAttribute('data-theme', theme);
         if (themeToggleButton) {
-            themeToggleButton.innerHTML = theme === 'light' ? moonIcon : sunIcon; // Меняем иконку на кнопке
-            themeToggleButton.title = theme === 'light' ? 'Переключить на темную тему' : 'Переключить на светлую тему'; // Меняем title кнопки
+            themeToggleButton.innerHTML = theme === 'light' ? moonIcon : sunIcon;
+            themeToggleButton.title = theme === 'light' ? 'Переключить на темную тему' : 'Переключить на светлую тему';
         }
-        localStorage.setItem('theme', theme); // Сохраняем выбор темы в localStorage
+        localStorage.setItem('theme', theme);
     }
 
-    // Загружаем сохраненную тему или определяем по системным настройкам
-    const savedTheme = localStorage.getItem('theme') ||
-                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    applyTheme(savedTheme); // Применяем тему
+    // --- Применение акцентного цвета и фона ---
+    function applyAccent(accentId, colorVar) {
+        // Устанавливаем атрибут для CSS, чтобы он мог выбрать правильный градиент
+        root.setAttribute('data-accent', accentId);
+        // Устанавливаем переменную для цвета ссылок, кнопок и т.д.
+        root.style.setProperty('--current-accent-color', colorVar);
 
-    if (themeToggleButton) {
-        themeToggleButton.addEventListener('click', () => {
-            let newTheme = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; // Определяем новую тему
-            applyTheme(newTheme); // Применяем новую тему
-        });
-    }
-
-    // --- Переключение акцентного цвета ---
-    function applyAccentColor(colorVar) {
-        root.style.setProperty('--current-accent-color', colorVar); // Устанавливаем CSS-переменную
-        localStorage.setItem('accent-color', colorVar); // Сохраняем выбор цвета
-
-        // Обновляем активный класс на кнопках выбора цвета
+        // Обновляем активный класс на кнопках
         if (accentPickerContainer) {
             const accentButtons = accentPickerContainer.querySelectorAll('.accent-option');
             accentButtons.forEach(btn => {
                 btn.classList.remove('active-accent');
-                if (btn.getAttribute('data-color') === colorVar) {
+                if (btn.getAttribute('data-accent-id') === accentId) {
                     btn.classList.add('active-accent');
                 }
             });
         }
+
+        // Сохраняем выбор в localStorage
+        localStorage.setItem('accent-id', accentId);
+        localStorage.setItem('accent-color-var', colorVar);
     }
 
-    // Загружаем сохраненный акцентный цвет или используем цвет по умолчанию
-    const savedAccentColor = localStorage.getItem('accent-color') || 'var(--accent-color-1)';
-    applyAccentColor(savedAccentColor); // Применяем цвет
+    // --- Инициализация при загрузке страницы ---
 
+    // 1. Устанавливаем тему
+    const savedTheme = localStorage.getItem('theme') ||
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    applyTheme(savedTheme);
+
+    // 2. Устанавливаем акцентный цвет
+    const savedAccentId = localStorage.getItem('accent-id') || '1';
+    const savedAccentColorVar = localStorage.getItem('accent-color-var') || 'var(--accent-color-1)';
+    applyAccent(savedAccentId, savedAccentColorVar);
+
+
+    // --- Обработчики событий ---
+
+    // Клик на переключатель темы
+    if (themeToggleButton) {
+        themeToggleButton.addEventListener('click', () => {
+            let newTheme = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            applyTheme(newTheme);
+        });
+    }
+
+    // Клик на выбор акцентного цвета
     if (accentPickerContainer) {
         const accentButtons = accentPickerContainer.querySelectorAll('.accent-option');
         accentButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const selectedColor = button.getAttribute('data-color'); // Получаем цвет из атрибута data-color
-                applyAccentColor(selectedColor); // Применяем выбранный цвет
+                const accentId = button.getAttribute('data-accent-id');
+                const colorVar = button.getAttribute('data-color');
+                applyAccent(accentId, colorVar);
             });
         });
     }
-
+    
     // --- Активная навигационная ссылка ---
-    // Это помогает выделить текущую страницу в навигации
     const currentLocation = window.location.pathname.split('/').pop() || 'index.html';
     const navLinks = document.querySelectorAll('header ul li a');
     navLinks.forEach(link => {
-        const linkPath = link.getAttribute('href').split('/').pop() || 'index.html'; // Получаем имя файла из href ссылки
+        const linkPath = link.getAttribute('href').split('/').pop() || 'index.html';
         if (linkPath === currentLocation) {
-            link.classList.add('active'); // Добавляем класс 'active', стилизованный в CSS
+            link.classList.add('active');
         } else {
             link.classList.remove('active');
         }
